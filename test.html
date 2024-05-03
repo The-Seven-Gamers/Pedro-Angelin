@@ -1,0 +1,150 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        @charset "utf-8";
+
+        *
+        {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        margin:0px;
+        padding:0px;
+        overflow: hidden;
+        }
+
+        body {
+            background-color: #050505;
+        }
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #050505;
+            width: 100%;
+            height: 100%;
+            filter: blur(5px) contrast(10);
+            mix-blend-mode: screen;
+        }
+        .visualizer {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: .5s;
+        }
+        .play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            background-color: #050505;
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-play {
+            border-left: 80px solid #5f5;
+            border-bottom: 50px solid transparent;
+            border-top: 50px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-pause {
+            border-right: 20px solid #5f5;
+            border-left: 20px solid #5f5;
+            height: 100px;
+            width: 75px;
+            cursor: pointer;
+        }
+
+        .element {
+            position: absolute;
+            top: calc(50% - 25px);
+            left: calc(50% - 25px);
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: inline-block;
+            border-top: 40px solid #fff;
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+            transition: .1s;
+        }
+
+    </style>
+</head>
+<body>
+    <audio src="assets/audio/predo_song.m4a"></audio>
+
+    <div class="box">
+        <div class="visualizer"></div>
+    </div>
+    <div class="play">
+        <div class="btn btn-play" id="btn"></div>
+    </div>
+</body>
+<script>
+    const btn = document.getElementById("btn");
+    const audio = document.querySelector("audio");
+    const visualizer = document.querySelector(".visualizer");
+
+    var feur = 0;
+
+    function init() {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        const ctx = new window.AudioContext();
+        const analyser = ctx.createAnalyser();
+        const source = ctx.createMediaElementSource(audio);
+        source.connect(analyser);
+        source.connect(ctx.destination);
+        analyser.fftSize = 64;
+        const bufferLength = analyser.frequencyBinCount;
+
+        let dataArray = new Uint8Array(bufferLength);
+        let elements = [];
+        for (let i=0; i<bufferLength; i++) {
+            const element = document.createElement('span');
+            element.classList.add('element');
+            elements.push(element);
+            visualizer.appendChild(element);
+        }
+
+        const clamp = (num, min, max) => {
+            if (num >= max) return max;
+            if (num <= min) return min;
+            return num;
+        }
+
+        const update = () => {
+            requestAnimationFrame(update);
+            analyser.getByteFrequencyData(dataArray);
+            for (let i=0; i<bufferLength; i++) {
+                let item = dataArray[i];
+                item = (item-120)/4+125; //------------------------------------
+                console.log(item);
+                elements[i].style.transform = `rotateZ(${i * (360 / bufferLength)}deg) translate(${clamp(item, 125, 150)}px, 0)`;
+            }
+        };
+        update();
+    }
+
+    btn.addEventListener("click", e => {
+        audio.paused ? audio.play() : audio.pause();
+        btn.classList.toggle('btn-pause');
+        btn.classList.toggle('btn-play');
+        if (feur == 0) {
+            feur = 1;
+            init();
+        }
+    });
+</script>
+</html>

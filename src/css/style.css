@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+*
+{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin:0px;
+  padding:0px;
+  overflow: hidden;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #050505;
+}
+
+.container {
+    height: min(80vh, 80vw);
+    width: min(80vh, 80vw);
+    background-color: white;
+    border-radius: 100%;
+}
+
+button {
+    position: absolute;
+    padding: 1em;
+    /* center */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
