@@ -9,9 +9,13 @@
     <script type="text/javascript" src="src/js/autoplay.js"></script>
 </head>
 <body>
+    <div class="box">
+        <div class="container visualizer"></div>
+    </div>
     <video onload="videoLoaded()" onvolumechange="videoLoaded()" onclick="videoLoaded()" class="container" id="video" autoplay muted loop playsinline>
         <source src="assets/video/nathan.mp4" type="video/mp4">
     </video>
-    <script type="text/javascript" src="src/js/rotation.js"></script>
 </body>
+<script type="text/javascript" src="src/js/rotation.js"></script>
+<script type="text/javascript" src="src/js/visualizer.js"></script>
 </html>
