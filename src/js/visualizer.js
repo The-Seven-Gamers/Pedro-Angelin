@@ -12,10 +12,12 @@ const btn = document.getElementById("btn");
         source.connect(analyser);
         source.connect(ctx.destination);
         analyser.fftSize = 64;
-        const bufferLength = analyser.frequencyBinCount;
+        var bufferLength = analyser.frequencyBinCount;
 
         let dataArray = new Uint8Array(bufferLength);
         let elements = [];
+        bufferLength = 22; // for the pedro pedro remix because it is more esthetical
+        // (the quality is bad so no sound in the end)
         for (let i=0; i<bufferLength; i++) {
             const element = document.createElement('span');
             element.classList.add('element');
@@ -35,7 +37,14 @@ const btn = document.getElementById("btn");
             for (let i=0; i<bufferLength; i++) {
                 let item = dataArray[i];
                 item = (item-80)^2+20; //------------------------------------
-                console.log(item);
+                // this if is used for the pedro pedro remix
+                // it is more esthetical like this
+                if (i in [0,1,2,3]) {
+                    item -= 100 - 20*i;
+                }
+                if (item < 0) {
+                    console.log(i + " " + item);
+                }
                 elements[i].style.transform = `rotateZ(${i * (360 / bufferLength)}deg) translate(calc(${clamp(item, 0, 130)}*min(0.15vh, 0.2vw) + min(20vh, 20vw)), 0)`;
             }
         };
