@@ -53,7 +53,7 @@ body {
     /* border-top: min(8vh, 8vw) solid rgb(226, 198, 178);
     border-right: min(4vh, 4vw) solid transparent;
     border-left: min(4vh, 4vw) solid transparent; */
-    background-color: white;
+    background-color: #C8AD7F;
     border-radius: 50%;
     transition: 0.5s;
 }
