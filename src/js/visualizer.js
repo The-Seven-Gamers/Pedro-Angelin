@@ -42,9 +42,6 @@ const btn = document.getElementById("btn");
                 if (i in [0,1,2,3]) {
                     item -= 100 - 20*i;
                 }
-                if (item < 0) {
-                    console.log(i + " " + item);
-                }
                 elements[i].style.transform = `rotateZ(${i * (360 / bufferLength)}deg) translate(calc(${clamp(item, 0, 130)}*min(0.15vh, 0.2vw) + min(20vh, 20vw)), 0)`;
             }
         };
