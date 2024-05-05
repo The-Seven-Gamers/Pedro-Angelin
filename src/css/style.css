@@ -57,3 +57,13 @@ body {
     border-radius: 50%;
     transition: 0.5s;
 }
+
+p {
+    color: rgb(102, 85, 72);
+    position: absolute;
+    bottom: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    font-style: italic;
+    font-family: 'Courier New', Courier, monospace;
+}

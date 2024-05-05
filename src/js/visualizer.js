@@ -1,6 +1,7 @@
 const btn = document.getElementById("btn");
     const audio = document.querySelector("video");
     const visualizer = document.querySelector(".visualizer");
+    const txt = document.querySelector("p");
 
     var feur = 0;
     
@@ -54,4 +55,5 @@ const btn = document.getElementById("btn");
             feur = 1;
             init();
         }
+        txt.style.display = "none";
     });
