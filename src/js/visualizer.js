@@ -11,7 +11,7 @@ const btn = document.getElementById("btn");
         const source = ctx.createMediaElementSource(audio);
         source.connect(analyser);
         source.connect(ctx.destination);
-        analyser.fftSize = 128;
+        analyser.fftSize = 64;
         const bufferLength = analyser.frequencyBinCount;
 
         let dataArray = new Uint8Array(bufferLength);
@@ -34,9 +34,9 @@ const btn = document.getElementById("btn");
             analyser.getByteFrequencyData(dataArray);
             for (let i=0; i<bufferLength; i++) {
                 let item = dataArray[i];
-                item = (item-80); //------------------------------------
+                item = (item-80)^2+20; //------------------------------------
                 console.log(item);
-                elements[i].style.transform = `rotateZ(${i * (360 / bufferLength)}deg) translate(calc(${clamp(item, 0, 120)}*0.05em + min(20vh, 20vw)), 0)`;
+                elements[i].style.transform = `rotateZ(${i * (360 / bufferLength)}deg) translate(calc(${clamp(item, 0, 130)}*min(0.15vh, 0.2vw) + min(20vh, 20vw)), 0)`;
             }
         };
         update();

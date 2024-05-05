@@ -28,8 +28,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    filter: blur(1em);
-    mix-blend-mode: normal;
+    filter: blur(2em);
+    mix-blend-mode: exclusion;
     position: absolute;
     top: 0;
     left: 0;
@@ -55,5 +55,5 @@ body {
     border-left: min(4vh, 4vw) solid transparent; */
     background-color: white;
     border-radius: 50%;
-    transition: .3s;
+    transition: 0.5s;
 }
