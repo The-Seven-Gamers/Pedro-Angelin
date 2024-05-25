@@ -1,3 +1,5 @@
+var feur = 0;
+
 function videoLoaded() {
     if (document.getElementById("video").muted == true) {
         document.getElementById("video").muted = false;
